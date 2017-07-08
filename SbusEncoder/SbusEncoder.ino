@@ -57,18 +57,15 @@ void loop() {
 
     pulse = fall[i] - rise[i];
 
-    if (pulse < PULSE_MIN_DOUBLE) {
-      pulse = PULSE_MIN_DOUBLE;
-    
-    } else if (pulse > PULSE_MAX_DOUBLE) {
-      pulse = PULSE_MAX_DOUBLE;
+    if (pulse < PULSE_MIN_DOUBLE || pulse > PULSE_MAX_DOUBLE) {
+      continue;
     }
 
     // genFour  = (uint16_t) (((pulse >> 1) - 880) * 8 / 5);
     genFour     = (uint16_t) ((pulse << 2) / 5 - 1408);
-    
+
     channel[i]  = (genOne[i] + genTwo[i] + genThree[i] + genFour) >> 2;
-    
+
     genOne[i]   = genTwo[i];
     genTwo[i]   = genThree[i];
     genThree[i] = genFour;
