@@ -12,6 +12,8 @@
 
 #define FRAME_SIZE        25
 
+const uint8_t mapper[CHANNEL_COUNT] = {1, 0, 2, 3, 4, 5};
+
 uint32_t  rise[CHANNEL_COUNT], fall[CHANNEL_COUNT], pulse;
 uint16_t  channel[CHANNEL_COUNT],
           genOne[CHANNEL_COUNT], genTwo[CHANNEL_COUNT], genThree[CHANNEL_COUNT], genFour;
@@ -64,7 +66,7 @@ void loop() {
     // genFour  = (uint16_t) (((pulse >> 1) - 880) * 8 / 5);
     genFour     = (uint16_t) ((pulse << 2) / 5 - 1408);
 
-    channel[i]  = (genOne[i] + genTwo[i] + genThree[i] + genFour) >> 2;
+    channel[mapper[i]]  = (genOne[i] + genTwo[i] + genThree[i] + genFour) >> 2;
 
     genOne[i]   = genTwo[i];
     genTwo[i]   = genThree[i];
